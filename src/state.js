@@ -19,6 +19,17 @@ function initData (vm) {
   observer(data)
 }
 
+export function proxy (vm,source,value) {
+  Object.defineProperty(vm, source, {
+    get () {
+      return vm[source]
+    },
+    set () {
+      vm[source] = value
+    }
+  })
+}
+
 function initComputed () {
   
 }
