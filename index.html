@@ -8,12 +8,14 @@
 </head>
 <body>
   <script src="./dist/vue.js"></script>
-  <div id="app">{{name}}</div>
+  <div id='app' class="abc ccc" a="123">{{name}}
+    <span>1223</span>
+  </div>
 </body>
 </html>
 <script>
  let vue = new Vue({
-    el:'app',
+    el:'#app',
     data(){
       return{
         name:'xxx',
