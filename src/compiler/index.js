@@ -7,8 +7,6 @@ export function compileToFunction(template) {
   let root = parserHtml(template);
 
   let code = generate(root)
-  
   return new Function(`with (this) {return ${code}}`);
 }
-
 

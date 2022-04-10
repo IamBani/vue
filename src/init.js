@@ -14,6 +14,7 @@ export function initMixin (Vue) {
 
   Vue.prototype.$mount = function (el) {
     el = document.querySelector(el)
+    this.$el = el;
     const vm = this;
     let options = vm.$options
     if (!options.render) {
@@ -21,7 +22,7 @@ export function initMixin (Vue) {
       if (!template && el) {
         template = el.outerHTML;
         let render = compileToFunction(template)
-        options.render = render
+        vm.$options.render = render
       }
     }
     mountComponent(vm,el)

@@ -16,18 +16,21 @@ export function initState (vm) {
 function initData (vm) {
   let data = vm.$options.data
   data = vm._data = isFunction(data) ? data.call(vm) : data
+  for (const key in data) {
+   proxy(vm,'_data',key)
+  }
   observer(data)
 }
 
-export function proxy (vm,source,value) {
-  Object.defineProperty(vm, source, {
-    get () {
-      return vm[source]
+export function proxy (vm,source,key) {
+  Object.defineProperty(vm, key, {
+    get() {
+      return vm[source][key];
     },
-    set () {
-      vm[source] = value
-    }
-  })
+    set(value) {
+      vm[source][key] = value;
+    },
+  });
 }
 
 function initComputed () {

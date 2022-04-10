@@ -1,5 +1,6 @@
 import { isObject } from "../utils";
 import { arrayMethods } from "./array";
+import { Dep } from "./dep";
 
 export function observer (data) {
   if (!isObject(data)) {
@@ -30,14 +31,21 @@ class Observer{
 
 function defineReactive (data, keys, value) {
   observer(value)
+  let dep = new Dep()
   Object.defineProperty(data, keys, {
-    get () {
+    get() {
+      if (Dep.target) {
+        dep.depend()
+      }
       return value
     },
-    set (newValue) {
-      console.log(newValue)
-      observer(newValue)
-      value = newValue
+    set(newValue) {
+      if (newValue !== value) {
+        console.log(newValue);
+        observer(newValue);
+        value = newValue;
+        dep.notify()
+      }
     }
   })
 }
